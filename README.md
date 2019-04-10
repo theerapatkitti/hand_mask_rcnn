@@ -45,6 +45,8 @@ Evaluation code can be ran by using:
 python3 samples/hand/hand.py evaluate --dataset=/path/to/dataset/ --model=/path/to/weights.h5
 ```
 
+The visualization of the model output can be seen by using [inspect_hand_model](scripts/inspect_hand_model.ipynb).
+
 ## Dataset
 
 [Rendered Handpose Dataset](https://lmb.informatik.uni-freiburg.de/resources/datasets/RenderedHandposeDataset.en.html) is used as a dataset to train the Hand Mask R-CNN. To make the dataset able to work with Python COCO tools, the annotation must be in COCO format. [RHD_to_COCO.ipynb](scripts/RHD_to_COCO.ipynb) converts RHD's annotation into COCO format.
