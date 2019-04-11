@@ -7,6 +7,7 @@ This is an implementation of Mask R-CNN on Python 3, Keras, and TensorFlow. The 
 ### Prerequisites
 
 * [Python 3.6](https://www.python.org/downloads/)
+* [Docker](https://docs.docker.com/install/) 
 
 ### Setup
 
@@ -51,10 +52,50 @@ The visualization of the model output can be seen by using [inspect_hand_model](
 
 [Rendered Handpose Dataset](https://lmb.informatik.uni-freiburg.de/resources/datasets/RenderedHandposeDataset.en.html) is used as a dataset to train the Hand Mask R-CNN. To make the dataset able to work with Python COCO tools, the annotation must be in COCO format. [RHD_to_COCO.ipynb](scripts/RHD_to_COCO.ipynb) converts RHD's annotation into COCO format.
 
+## Creating Graph
+
+To make the model able to be used in any language, the pre-processing and post-processing process is added to the graph by using [create_mask_rcnn_graph.ipynb](scripts/create_mask_rcnn_graph.ipynb).
+
+## API
+
+### Setup
+
+Put SavedModel export from [create_mask_rcnn_graph.ipynb](scripts/create_mask_rcnn_graph.ipynb) into docker folder.
+
+### Hand Mask Detection
+
+The API returns bounding boxes and segmentation masks for each hand in the image. The response will have the form:
+
+```
+{
+    "predictions": {
+      [
+        "roi": ...,
+        "class_id": ...,
+        "score": ...,
+        "mask": ...,
+      ],
+      ...
+    }
+    "success": ...
+}
+```
+To call API:
+
+```
+import requests
+
+files = {"image": ("filename", open("path/to/image", "rb"), "mimetype")}
+
+requests.post("http://<ip>:5000/predict", files=files)
+```
+
 ## Built With
 
 * [Keras](https://keras.io/)
 * [Tensorflow](https://www.tensorflow.org/)
+* [Docker](https://www.docker.com/)
+* [Flask](http://flask.pocoo.org/)
 
 ## Citation
 
